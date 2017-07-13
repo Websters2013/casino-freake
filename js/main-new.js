@@ -29,10 +29,6 @@
             Slider( $( this ) );
         });
 
-        $( '.game-load' ).each( function() {
-            GameMore( $( this ) );
-        });
-
         $( '.tooltip' ).each ( function() {
             new Tooltip( $( this ) );
         }) ;
@@ -309,109 +305,6 @@
             },
             _init = function () {
                 _addEvents();
-            };
-
-        //public properties
-
-        //public methods
-
-        _init();
-    };
-
-    var GameMore = function(obj) {
-
-        //private properties
-        var _obj = obj,
-            curShowItem = _obj.find('.more__item'),
-            curShowItemLength = curShowItem.length,
-            curShowDataStart = 0,
-            _btnMore = _obj.find('.game__load-more'),
-            _btnMoreNumber = _btnMore.data('load'),
-            curShowData = _btnMore.data('show'),
-            _request = new XMLHttpRequest();
-
-        curShowItem.slice(curShowDataStart,ItemLength).addClass('hidden');
-
-        curShowItem.slice(curShowDataStart,curShowData).addClass('already-load-start');
-
-        if( _btnMoreNumber > curShowData ){
-            curShowDataStart = curShowData - _btnMoreNumber;
-        }
-
-        //private methods
-        var _addEvents = function() {
-
-                _btnMore.on({
-                    click: function(){
-
-                        if(!$('.game-load').hasClass('filter-no')){
-                            $('.game-load').addClass('grid-active');
-
-                            _ajaxPopupRequest();
-
-                        }
-
-                        if($(this).hasClass('game-filter-active')){
-
-                            $(this).removeClass('game-filter-active');
-                            filterElem.removeClass('game-filter-active');
-                            $(this).addClass('game-results-active-btn');
-
-                            $('.game-load').addClass('grid-active');
-
-                        } else{
-
-                            curShowData = curShowData + _btnMoreNumber;
-                            curShowDataStart = curShowDataStart + _btnMoreNumber;
-
-                            curShowItem.slice(curShowDataStart,curShowData).addClass('already-load');
-
-                            if ( curShowData >= curShowItemLength ){
-
-                                $(this).addClass('game-results-all');
-
-                            }
-                            _loadItem = curShowData;
-                            _obj.attr('data-already', curShowData);
-                            _obj.attr('data-show', curShowItemLength);
-                        }
-
-                        return false;
-                    }
-                });
-
-            },
-            _init = function() {
-
-                _addEvents();
-
-            },
-            _ajaxPopupRequest = function( element ){
-
-                var curElement = element;
-
-                _request = $.ajax( {
-                    url: 'http://demo.websters.com.ua/casino-freake/php/article-list.php',
-                    data: {
-                        loadedCount: 20
-                    },
-                    dataType: 'html',
-                    type: 'GET',
-                    success: function ( data ) {
-
-                        _obj.find( '.learn' ).append( data );
-                        _obj.find( '.learn__item' ).filter( '.new' ).addClass( 'already-load-start' ).removeClass( 'new' );
-                        return false;
-
-                    },
-                    error: function ( XMLHttpRequest ) {
-                        if ( XMLHttpRequest.statusText != "abort" ) {
-                            console.log( 'err' );
-                            return false;
-                        }
-                    }
-                } );
-
             };
 
         //public properties
