@@ -425,6 +425,7 @@
 
         //private properties
         var _obj = obj,
+            _site = $( '.site' ),
             _request = new XMLHttpRequest();
 
         //private methods
@@ -458,6 +459,21 @@
 
                 );
 
+                _site.on(
+                    'click', function ( e ) {
+
+                        var tooltipWrap = _obj.find( '.tooltip__wrap' );
+
+                        if ( tooltipWrap.length > 0 && $( e.target ).closest( tooltipWrap ).length == 0 ){
+
+                            _obj.removeClass( 'active' );
+                            tooltipWrap.remove();
+
+                        }
+
+                    }
+                );
+
             },
             _ajaxPopupRequest = function( element ){
 
@@ -466,7 +482,8 @@
                 _request = $.ajax( {
                     url: 'http://demo.websters.com.ua/casino-freake/php/tooltip__wrap.php',
                     data: {
-                        loadedCount: 1
+                        tooltipId: curElement.data( 'id' ),
+                        tooltipTag:  curElement.data( 'tag' )
                     },
                     dataType: 'html',
                     type: 'GET',
