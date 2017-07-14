@@ -939,9 +939,9 @@ body {
     margin-bottom: 20px;
     border-bottom: 1px solid #f1f1f1;
 }
-.learn__item.more__item{
+/*.learn__item.more__item{
     display: none;
-}
+}*/
 .learn__item.more__item.already-load,
 .learn__item.more__item.already-load-start{
     display: block;
